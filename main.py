@@ -47,6 +47,13 @@ def main() -> int:
     if len(CLAUSES) != 2:
         print("line must be built from exactly two clauses", file=sys.stderr)
         return 1
+    for clause in CLAUSES:
+        if not isinstance(clause, str) or not clause.strip():
+            print("each clause must be a non-empty string", file=sys.stderr)
+            return 1
+        if "\n" in clause or "\r" in clause:
+            print("clauses must not contain line breaks", file=sys.stderr)
+            return 1
     text = LINE
     bad = problems(text)
     if bad:
